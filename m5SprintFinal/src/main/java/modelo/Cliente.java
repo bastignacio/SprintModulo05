@@ -9,6 +9,9 @@ public class Cliente extends Usuario {
 	private String direccionEmpresa;
 	private String comunaEmpresa;
 	
+	public Cliente() {
+		super();
+	}
 	
 	public Cliente(int idUsuario, String nombreUsuario, String apellidoUsuario, String runUsuario, String correoUsuario,
 			String telefonoUsuario, String rutEmpresa, String nombreEmpresa, String telefonoEmpresa,

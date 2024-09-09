@@ -36,7 +36,6 @@
                      <h5 class="card-title"><%= nuevoUsuario.getNombreUsuario() %></h5>
                     <p class="card-text"><strong>Identificador</strong> <%= nuevoUsuario.getIdUsuario() %></p>
                     <p class="card-text"><strong>Nombre:</strong> <%= nuevoUsuario.getNombreUsuario() %></p>
-                    <p class="card-text"><strong>Tipo:</strong> <%= nuevoUsuario.getTipoUsuario() %></p>
                 </div>
             </div>
         <%
