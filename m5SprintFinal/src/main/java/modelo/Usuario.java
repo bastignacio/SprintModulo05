@@ -18,6 +18,7 @@ public class Usuario {
 		this.runUsuario = runUsuario;
 		this.correoUsuario = correoUsuario;
 		this.telefonoUsuario = telefonoUsuario;
+
 	}
 
 	public int getIdUsuario() {
@@ -66,19 +67,15 @@ public class Usuario {
 
 	public void setTelefonoUsuario(String telefonoUsuario) {
 		this.telefonoUsuario = telefonoUsuario;
+
 	}
 
 	@Override
 	public String toString() {
+
 		return "Usuario [idUsuario=" + idUsuario + ", nombreUsuario=" + nombreUsuario + ", apellidoUsuario="
 				+ apellidoUsuario + ", runUsuario=" + runUsuario + ", correoUsuario=" + correoUsuario
 				+ ", telefonoUsuario=" + telefonoUsuario + "]";
 	}
-	
-	
-
-	
-
-	
 	
 }
