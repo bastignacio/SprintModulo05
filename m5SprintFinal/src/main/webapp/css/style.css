@@ -1,0 +1,53 @@
+@charset "UTF-8";
+
+html body {
+
+display: grid !important;
+min-height: 100vh !important;
+grid-template-rows: auto 1fr auto !important;
+
+}
+
+body {
+    background-color: #121212; /* Color de fondo oscuro */
+    color: #e0e0e0; /* Color de texto claro */
+    font-family: 'Arial', sans-serif;
+}
+
+h2 {
+    font-size: 1.75rem;
+    font-weight: 500;
+    margin-bottom: 20px;
+    color: #e0e0e0;
+}
+
+.form-control, .form-select {
+    background-color: #1e1e1e; /* Fondo de los campos de entrada */
+    color: #e0e0e0; /* Texto claro */
+    border: 1px solid #333; /* Borde gris oscuro */
+    border-radius: 4px;
+}
+
+.form-control:focus, .form-select:focus {
+    border-color: #6200ea; /* Color de borde al enfocar */
+    box-shadow: 0 0 0 0.2rem rgba(98, 0, 234, 0.25); /* Sombra al enfocar */
+}
+
+.btn-primary {
+    background-color: #6200ea; /* Color de fondo del botón */
+    border-color: #6200ea; /* Color de borde del botón */
+}
+
+.btn-primary:hover {
+    background-color: #3700b3; /* Color de fondo del botón al pasar el cursor */
+    border-color: #3700b3; /* Color de borde del botón al pasar el cursor */
+}
+
+.invalid-feedback {
+    color: #ff5252; /* Color de los mensajes de error */
+}
+
+.is-invalid {
+    border-color: #ff5252 !important; /* Borde rojo para campos no válidos */
+    background-color: #2b1a1a !important; /* Fondo claro para campos no válidos */
+}
