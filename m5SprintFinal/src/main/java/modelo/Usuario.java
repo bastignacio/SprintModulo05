@@ -9,6 +9,10 @@ public class Usuario {
 	private String correoUsuario;
 	private String telefonoUsuario;
 	
+	public Usuario() {
+		super();
+	}
+	
 	public Usuario(int idUsuario, String nombreUsuario, String apellidoUsuario, String runUsuario, String correoUsuario,
 			String telefonoUsuario) {
 		super();

@@ -8,7 +8,6 @@ public class Capacitacion {
 
 	public Capacitacion() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public Capacitacion(int idCapacitacion, String nombreCapacitacion, String detalleCapacitacion) {

@@ -1,13 +1,15 @@
 package modelo;
 
-
 import java.time.LocalDate;
 
 public class Profesional extends Usuario {
 
 	private String tituloProfesional;
 	private LocalDate fechaIngresoProfesional;
-	
+
+	public Profesional() {
+		super();
+	}
 
 	public Profesional(int idUsuario, String nombreUsuario, String apellidoUsuario, String runUsuario,
 			String correoUsuario, String telefonoUsuario, String tituloProfesional, LocalDate fechaIngresoProfesional) {
@@ -37,7 +39,5 @@ public class Profesional extends Usuario {
 		return super.toString() + "Profesional [tituloProfesional=" + tituloProfesional + ", fechaIngresoProfesional="
 				+ fechaIngresoProfesional + "]";
 	}
-	
-	
-}
 
+}
