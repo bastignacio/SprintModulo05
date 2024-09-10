@@ -1,4 +1,4 @@
-# Evaluación Final Spring Módulo 5 Fundamentos de Programación Java
+# Evaluación Final Sprint Módulo 5
 ## Sistema de Información para Empresa de Asesorías en Prevención de Riesgos
 # Integrantes:
 
@@ -11,7 +11,7 @@ Bastian Muñoz
 Bastian Espinosa
 
 
-Josshua Montt
+Joshua Montt
 
 
 Nicolas Gajardo
