@@ -1,4 +1,4 @@
-package interfaz;
+package dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -32,14 +32,22 @@ public class InterfazImpl implements Interfaz {
 		this.conn = ConexionBD.getConnection();
 	}
 
-	@Override
 	public void almacenarCapacitacion(Capacitacion capacitacion) throws SQLException {
-		String sql = "INSERT INTO capacitaciones (nombreCapacitacion, detalleCapacitacion) VALUES (?, ?)";
-		try (PreparedStatement statement = conn.prepareStatement(sql)) {
-			statement.setString(1, capacitacion.getNombreCapacitacion());
-			statement.setString(2, capacitacion.getDetalleCapacitacion());
-			statement.executeUpdate();
-		}
+	    String sql = "INSERT INTO capacitaciones (nombreCapacitacion, detalleCapacitacion) VALUES (?, ?)";
+
+	    try (Connection conn = ConexionBD.getConnection(); 
+	         PreparedStatement ps = conn.prepareStatement(sql)) {
+
+	        ps.setString(1, capacitacion.getNombreCapacitacion());
+	        ps.setString(2, capacitacion.getDetalleCapacitacion());
+			/* ps.setString(3, capacitacion.getRutEmpresa()); */
+
+	        ps.executeUpdate();
+	        System.out.println("Capacitación almacenada correctamente.");
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	        System.out.println("Error al almacenar la capacitación: " + e.getMessage());
+	    }
 	}
 
 	@Override
@@ -310,6 +318,11 @@ public class InterfazImpl implements Interfaz {
     private void actualizarCliente(Cliente cliente) throws SQLException {
         String sql = "UPDATE clientes SET nombreEmpresa = ?, rutEmpresa = ?, telefonoEmpresa = ?, " +
                      "correoEmpresa = ?, direccionEmpresa = ?, comunaEmpresa = ? WHERE idUsuario = ?";
+        
+        System.out.println("SQL Query: " + sql);
+        System.out.println("// DEBUG // NOMBRE CLIENTE " + cliente.getNombreEmpresa());
+        System.out.println("// DEBUG // RUT EMPRESA " + cliente.getRutEmpresa());
+        System.out.println("// DEBUG // ID USUARIO " + cliente.getIdUsuario());
 
         try (PreparedStatement statement = conn.prepareStatement(sql)) {
             statement.setString(1, cliente.getNombreEmpresa());
@@ -356,7 +369,6 @@ public class InterfazImpl implements Interfaz {
     }
 
 	
-
 	@Override
 	public void almacenarFormularioContacto(FormularioContacto formulario) {
 		if (this.formularioContacto == null) {
@@ -364,5 +376,43 @@ public class InterfazImpl implements Interfaz {
 		}
 		this.formularioContacto.add(formulario);
 	}
+	
+	
+	public void eliminarUsuario(int idUsuario) {
+	    String sql = "DELETE FROM usuarios WHERE idUsuario = ?";
+
+	    try (Connection con = ConexionBD.getConnection();
+	         PreparedStatement ps = con.prepareStatement(sql)) {
+	        ps.setInt(1, idUsuario);
+	        ps.executeUpdate();
+	        System.out.println("Usuario eliminado correctamente.");
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	        System.out.println("Error al eliminar el usuario: " + e.getMessage());
+	    }
+	}
+
+	public List<Cliente> obtenerEmpresas() throws SQLException {
+	    List<Cliente> listaEmpresas = new ArrayList<>();
+	    
+	    String sql = "SELECT * FROM clientes";  // Asume que 'clientes' es la tabla donde guardas los datos de las empresas
+
+	    try (Connection conn = ConexionBD.getConnection();
+	         Statement stmt = conn.createStatement();
+	         ResultSet rs = stmt.executeQuery(sql)) {
+
+	        while (rs.next()) {
+	            Cliente empresa = new Cliente();
+	            empresa.setRutEmpresa(rs.getString("rutEmpresa"));
+	            empresa.setNombreEmpresa(rs.getString("nombreEmpresa"));
+	            // Agrega otros campos relevantes según tu modelo
+	            listaEmpresas.add(empresa);
+	        }
+	    }
+
+	    return listaEmpresas;
+	}
+
+
 
 }
