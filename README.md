@@ -24,7 +24,6 @@ Nicolas Gajardo
 - [3. SOLUCIÓN](#3-SOLUCIÓN)
 - [4. ESTRUCTURA DEL PROYECTO](#4-ESTRUCTURA_DEL_PROYECTO)
 - [5. REQUISITOS DEL SISTEMA](#5-REQUISITOS_DEL_SISTEMA)
-- [6. USO](#6-USO)
 
 ## 1. CONTEXTO
 
@@ -103,13 +102,4 @@ muchas empresas se encuentran en zonas donde no hay conexión de ese tipo.
 ## 5. REQUISITOS DEL SISTEMA
 ### Java 8 o superior
 ### IDE compatible con Java (Eclipse, IntelliJ IDEA, NetBeans, etc.)
-
-## 6. USO
-**Inicio:** Al ejecutar la aplicación, se mostrará un menú con opciones para registrar clientes, profesionales, administrativos, y capacitaciones.
-
-
-**Ingreso de datos:** Sigue las instrucciones en la consola para ingresar la información requerida.
-
-
-**Validación:** El sistema validará cada dato ingresado y te indicará si hay errores que deben corregirse.
 
