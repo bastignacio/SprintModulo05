@@ -1,4 +1,3 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="java.util.List" %>
 <%@ page import="modelo.Usuario" %>
 
@@ -60,6 +59,7 @@
                 <%
                     }
                 %>
+                <th>Acciones</th> <!-- Columna para el botón de modificar -->
             </tr>
         </thead>
         <tbody>
@@ -100,6 +100,13 @@
                             <%
                                 }
                             %>
+                            <!-- Botón de modificar -->
+                            <td>
+                                <form action="ModificarUsuario" method="get">
+                                    <input type="hidden" name="idUsuario" value="<%= usuario.getIdUsuario() %>">
+                                    <button type="submit" class="btn btn-warning">Modificar</button>
+                                </form>
+                            </td>
                         </tr>
             <%
                         }
@@ -113,6 +120,5 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
-
 
 

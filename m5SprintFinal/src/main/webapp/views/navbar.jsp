@@ -3,7 +3,7 @@
 
 
 <!DOCTYPE html>
-<html>
+<html lang="es" data-bs-theme="dark">
 <head>
 <meta charset="UTF-8">
 </head>
