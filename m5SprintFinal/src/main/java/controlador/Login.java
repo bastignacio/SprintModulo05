@@ -6,6 +6,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  * Servlet implementation class Login
@@ -13,29 +14,42 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/Login")
 public class Login extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public Login() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+	public Login() {
+		super();
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
+	@Override
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+	        throws ServletException, IOException {
+	    HttpSession session = request.getSession(false); // No crea una nueva sesión
+	    if (session != null && session.getAttribute("username") != null) {
+	        // Usuario ya autenticado, redirigir a la página de bienvenida
+	        response.sendRedirect(request.getContextPath() + "/views/bienvenido.jsp");
+	    } else {
+	        // Si no hay sesión, mostrar la página de login
+	        getServletContext().getRequestDispatcher("/views/login.jsp").forward(request, response);
+	    }
+	}
+
+	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
-	}
+	    // Obtiene los datos del formulario
+	    String username = request.getParameter("username");
+	    String password = request.getParameter("password");
 
+	    // Validación de credenciales
+	    if ("1234".equals(password) && "admin".equals(username)) {
+	        // Crea una sesión para el usuario
+	        HttpSession session = request.getSession();
+	        session.setAttribute("username", username);
+
+	        // Redirige a la página Index.jsp
+	        response.sendRedirect(request.getContextPath() + "/Index");
+	    } else {
+	        // Si el login falla, redirige de nuevo al login con un mensaje de error
+	        request.setAttribute("errorMessage", "Nombre de usuario o contraseña incorrectos");
+	        getServletContext().getRequestDispatcher("/views/login.jsp").forward(request, response);
+	    }
+	}
 }
