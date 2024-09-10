@@ -2,12 +2,14 @@ package modelo;
 
 public class Cliente extends Usuario {
 	
+	private int idUsuario;
 	private String nombreEmpresa;
 	private String rutEmpresa;
 	private String telefonoEmpresa;
 	private String correoEmpresa;
 	private String direccionEmpresa;
 	private String comunaEmpresa;
+	
 
 	public Cliente() {
 		super();
@@ -27,6 +29,20 @@ public class Cliente extends Usuario {
 
 	public Cliente(String nombreEmpresa, String rutEmpresa, String telefonoEmpresa, String correoEmpresa, String direccionEmpresa, String comunaEmpresa) {
 		super();
+		this.nombreEmpresa = nombreEmpresa;
+		this.rutEmpresa = rutEmpresa;
+		this.telefonoEmpresa = telefonoEmpresa;
+		this.correoEmpresa = correoEmpresa;
+		this.direccionEmpresa = direccionEmpresa;
+		this.comunaEmpresa = comunaEmpresa;
+	}
+	
+	
+
+	public Cliente(int idUsuario, String nombreEmpresa, String rutEmpresa, String telefonoEmpresa, String correoEmpresa,
+			String direccionEmpresa, String comunaEmpresa) {
+		super();
+		this.idUsuario = idUsuario;
 		this.nombreEmpresa = nombreEmpresa;
 		this.rutEmpresa = rutEmpresa;
 		this.telefonoEmpresa = telefonoEmpresa;
@@ -81,6 +97,14 @@ public class Cliente extends Usuario {
 
 	public void setComunaEmpresa(String comunaEmpresa) {
 		this.comunaEmpresa = comunaEmpresa;
+	}
+	
+	public int getIdUsuario() {
+		return idUsuario;
+	}
+
+	public void setIdUsuario(int idUsuario) {
+		this.idUsuario = idUsuario;
 	}
 
 	@Override

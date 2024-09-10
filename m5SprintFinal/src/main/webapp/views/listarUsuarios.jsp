@@ -1,17 +1,23 @@
 <%@ page import="java.util.List" %>
 <%@ page import="modelo.Usuario" %>
 
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
-<html lang="es">
+
+<html lang="es" data-bs-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Listado de Usuarios</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/style.css">
 </head>
-<body class="container mt-5">
+<body>
+<%@ include file='navbar.jsp'%>
+<div class="container-fluid">
+    <br><br>
     <h2 class="mb-4">Listado de Usuarios</h2>
 
     <!-- Filtro para seleccionar el tipo de usuario -->
@@ -28,7 +34,6 @@
     <table class="table table-bordered table-striped">
         <thead class="table-dark">
             <tr>
-                <th>ID</th>
                 <th>Nombre</th>
                 <th>Apellido</th>
                 <th>RUN</th>
@@ -59,7 +64,7 @@
                 <%
                     }
                 %>
-                <th>Acciones</th> <!-- Columna para el botón de modificar -->
+                <th>Acciones</th> <!-- Columna para los botones de acciones -->
             </tr>
         </thead>
         <tbody>
@@ -69,14 +74,13 @@
                     for (Usuario usuario : usuarios) {
                         if (usuario.getTipoUsuario().equals(tipoUsuario)) {
             %>
-                        <tr>
-                            <td><%= usuario.getIdUsuario() %></td>
+                        <tr style="font-size:80%;">
                             <td><%= usuario.getNombreUsuario() %></td>
                             <td><%= usuario.getApellidoUsuario() %></td>
                             <td><%= usuario.getRunUsuario() %></td>
                             <td><%= usuario.getCorreoUsuario() %></td>
                             <td><%= usuario.getTelefonoUsuario() %></td>
-                            <td><%= usuario.getTipoUsuario() %></td>
+                            <td style="text-transform:uppercase"><%= usuario.getTipoUsuario() %></td>
                             <!-- Mostrar datos adicionales según tipo de usuario -->
                             <%
                                 if ("cliente".equals(usuario.getTipoUsuario())) {
@@ -100,11 +104,15 @@
                             <%
                                 }
                             %>
-                            <!-- Botón de modificar -->
+                            <!-- Botones de acciones: Modificar y Eliminar -->
                             <td>
-                                <form action="ModificarUsuario" method="get">
+                                <form action="ModificarUsuario" method="get" style="display:inline;">
                                     <input type="hidden" name="idUsuario" value="<%= usuario.getIdUsuario() %>">
                                     <button type="submit" class="btn btn-warning">Modificar</button>
+                                </form>
+                                <form action="EliminarUsuario" method="post" style="display:inline;" onsubmit="return confirmDelete();">
+                                    <input type="hidden" name="idUsuario" value="<%= usuario.getIdUsuario() %>">
+                                    <button type="submit" class="btn btn-danger">Eliminar</button>
                                 </form>
                             </td>
                         </tr>
@@ -115,10 +123,16 @@
             %>
         </tbody>
     </table>
+</div>
 
-    <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<%@ include file='footer.jsp'%>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    function confirmDelete() {
+        return confirm("¿Estás seguro de que deseas eliminar este usuario?");
+    }
+</script>
 </body>
 </html>
-
-

@@ -1,4 +1,4 @@
-package interfaz;
+package dao;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -41,6 +41,11 @@ public interface Interfaz {
     Usuario obtenerUsuarioPorId(int idUsuario) throws SQLException;
     
 	void actualizarUsuario(Usuario usuario) throws SQLException;
+	
+	public void eliminarUsuario(int idUsuario) throws SQLException;
+	
+	
+	List<Cliente> obtenerEmpresas() throws SQLException;
 	 
     
     
