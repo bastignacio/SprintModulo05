@@ -11,20 +11,14 @@ import javax.servlet.http.HttpServletResponse;
 
 import interfaz.Interfaz;
 import interfaz.InterfazImpl;
+import modelo.Capacitacion;
 
-
-/**
- * Servlet implementation class CrearCapacitacion
- */
 @WebServlet("/CrearCapacitacion")
 public class CrearCapacitacion extends HttpServlet {
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
+
+private Interfaz interfaz;
 	
-	private Interfaz interfaz;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
     public CrearCapacitacion() {
         super();
         try {
@@ -36,20 +30,44 @@ public class CrearCapacitacion extends HttpServlet {
         }
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
-	}
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
-	}
+        try {
+			request.setAttribute("capacitaciones", interfaz.obtenerCapacitaciones());
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        request.getRequestDispatcher("/views/crearCapacitacion.jsp").forward(request, response);
+        
+       
+
+
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        
+          String nombreCapacitacion = request.getParameter("nombreCapacitacion");
+          String detalleCapacitacion = request.getParameter("detalleCapacitacion");
+        
+          Capacitacion newCapacitacion = new Capacitacion(nombreCapacitacion, detalleCapacitacion);
+          
+          try {
+			interfaz.almacenarCapacitacion(newCapacitacion);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+          
+        request.getRequestDispatcher("/views/crearCapacitacion.jsp").forward(request, response);
+        
+        
+        
+        
+        
+    }
+
 
 }
