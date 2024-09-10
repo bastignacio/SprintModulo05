@@ -34,7 +34,7 @@ public class InterfazImpl implements Interfaz {
 
 	@Override
 	public void almacenarCapacitacion(Capacitacion capacitacion) throws SQLException {
-		String sql = "INSERT INTO capacitaciones (nombre, detalle) VALUES (?, ?)";
+		String sql = "INSERT INTO capacitaciones (nombreCapacitacion, detalleCapacitacion) VALUES (?, ?)";
 		try (PreparedStatement statement = conn.prepareStatement(sql)) {
 			statement.setString(1, capacitacion.getNombreCapacitacion());
 			statement.setString(2, capacitacion.getDetalleCapacitacion());
@@ -100,12 +100,12 @@ public class InterfazImpl implements Interfaz {
 
 	@Override
 	public void almacenarCliente(Cliente cliente, int idUsuario) throws SQLException {
-		String sql = "INSERT INTO clientes (idUsuario, rutEmpresa, nombreEmpresa, telefonoEmpresa, correoEmpresa, direccionEmpresa, comunaEmpresa) VALUES (?, ?, ?, ?, ?, ?, ?)";
+		String sql = "INSERT INTO clientes (idUsuario, nombreEmpresa, rutEmpresa , telefonoEmpresa, correoEmpresa, direccionEmpresa, comunaEmpresa) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
 		try (PreparedStatement statement = conn.prepareStatement(sql)) {
 			statement.setInt(1, idUsuario); // El idUsuario debe estar configurado correctamente
-			statement.setString(2, cliente.getRutEmpresa());
-			statement.setString(3, cliente.getNombreEmpresa());
+			statement.setString(2, cliente.getNombreEmpresa());
+			statement.setString(3, cliente.getRutEmpresa());
 			statement.setString(4, cliente.getTelefonoEmpresa());
 			statement.setString(5, cliente.getCorreoEmpresa());
 			statement.setString(6, cliente.getDireccionEmpresa());
@@ -230,7 +230,7 @@ public class InterfazImpl implements Interfaz {
 	            usuario.setTipoUsuario(resultSet.getString("tipoUsuario"));
 
 	            String tipoUsuario = resultSet.getString("tipoUsuario");
-	            
+
 	            // Dependiendo del tipo de usuario, se rellenan los datos específicos
 	            switch (tipoUsuario) {
 	                case "cliente":
@@ -248,7 +248,11 @@ public class InterfazImpl implements Interfaz {
 	                    Profesional profesional = new Profesional();
 	                    profesional.setTituloProfesional(resultSet.getString("tituloProfesional"));
 	                    profesional.setFechaIngresoProfesional(resultSet.getString("fechaIngresoProfesional"));
-	                    usuario.setProfesional(profesional);
+
+	                    // Aquí aseguramos que el profesional tenga el mismo idUsuario que el usuario
+	                    profesional.setIdUsuario(resultSet.getInt("idUsuario"));
+
+	                    usuario.setProfesional(profesional); // Asignar el profesional al usuario
 	                    break;
 
 	                case "administrativo":
@@ -266,33 +270,41 @@ public class InterfazImpl implements Interfaz {
 
 	
 	@Override
-    public void actualizarUsuario(Usuario usuario) throws SQLException {
-        String sql = "UPDATE usuarios SET nombreUsuario = ?, apellidoUsuario = ?, runUsuario = ?, " +
-                     "correoUsuario = ?, telefonoUsuario = ?, tipoUsuario = ? WHERE idUsuario = ?";
+	public void actualizarUsuario(Usuario usuario) throws SQLException {
+	    if (usuario.getIdUsuario() == 0) {
+	        throw new SQLException("El ID de usuario es inválido.");
+	    }
 
-        try (PreparedStatement statement = conn.prepareStatement(sql)) {
-            // Asignar los valores al PreparedStatement
-            statement.setString(1, usuario.getNombreUsuario());
-            statement.setString(2, usuario.getApellidoUsuario());
-            statement.setString(3, usuario.getRunUsuario());
-            statement.setString(4, usuario.getCorreoUsuario());
-            statement.setString(5, usuario.getTelefonoUsuario());
-            statement.setString(6, usuario.getTipoUsuario());
-            statement.setInt(7, usuario.getIdUsuario());
+	    String sql = "UPDATE usuarios SET nombreUsuario = ?, apellidoUsuario = ?, runUsuario = ?, " +
+	                 "correoUsuario = ?, telefonoUsuario = ?, tipoUsuario = ? WHERE idUsuario = ?";
 
-            // Ejecutar la actualización del usuario
-            statement.executeUpdate();
-        }
+	    try (PreparedStatement statement = conn.prepareStatement(sql)) {
+	        // Asignar los valores al PreparedStatement
+	        statement.setString(1, usuario.getNombreUsuario());
+	        statement.setString(2, usuario.getApellidoUsuario());
+	        statement.setString(3, usuario.getRunUsuario());
+	        statement.setString(4, usuario.getCorreoUsuario());
+	        statement.setString(5, usuario.getTelefonoUsuario());
+	        statement.setString(6, usuario.getTipoUsuario());
+	        statement.setInt(7, usuario.getIdUsuario());
 
-        // Actualizar los datos específicos de cliente, profesional o administrativo
-        if ("cliente".equals(usuario.getTipoUsuario())) {
-            actualizarCliente(usuario.getCliente());
-        } else if ("profesional".equals(usuario.getTipoUsuario())) {
-            actualizarProfesional(usuario.getProfesional());
-        } else if ("administrativo".equals(usuario.getTipoUsuario())) {
-            actualizarAdministrativo(usuario.getAdministrativo());
-        }
-    }
+	        // Ejecutar la actualización del usuario y verificar el número de filas afectadas
+	        int rowsUpdated = statement.executeUpdate();
+	        if (rowsUpdated == 0) {
+	            throw new SQLException("No se pudo actualizar el usuario con el ID proporcionado.");
+	        }
+	    }
+
+	    // Actualizar los datos específicos de cliente, profesional o administrativo
+	    if ("cliente".equals(usuario.getTipoUsuario())) {
+	        actualizarCliente(usuario.getCliente());
+	    } else if ("profesional".equals(usuario.getTipoUsuario())) {
+	        actualizarProfesional(usuario.getProfesional());
+	    } else if ("administrativo".equals(usuario.getTipoUsuario())) {
+	        actualizarAdministrativo(usuario.getAdministrativo());
+	    }
+	}
+
 
     // Métodos para actualizar los datos específicos de cliente, profesional o administrativo
     private void actualizarCliente(Cliente cliente) throws SQLException {
@@ -316,16 +328,20 @@ public class InterfazImpl implements Interfaz {
         String sql = "UPDATE profesionales SET tituloProfesional = ?, fechaIngresoProfesional = ? WHERE idUsuario = ?";
         
         System.out.println("SQL Query: " + sql);
+        System.out.println("Titulo Profesional: " + profesional.getTituloProfesional());
+        System.out.println("Fecha Ingreso Profesional: " + profesional.getFechaIngresoProfesional());
+        System.out.println("idUsuario a actualizar: " + profesional.getIdUsuario());
 
-        
         try (PreparedStatement statement = conn.prepareStatement(sql)) {
             statement.setString(1, profesional.getTituloProfesional());
             statement.setString(2, profesional.getFechaIngresoProfesional());
-            statement.setInt(3, profesional.getIdUsuario());
-
-            statement.executeUpdate();
+            statement.setInt(3, profesional.getIdUsuario()); // Verifica que este valor no sea 0
+            
+            int rowsUpdated = statement.executeUpdate(); // Ejecutar la actualización
+            System.out.println("Filas actualizadas: " + rowsUpdated);
         }
     }
+
 
     private void actualizarAdministrativo(Administrativo administrativo) throws SQLException {
         String sql = "UPDATE administrativos SET areaAdministrativo = ?, experienciaPrevia = ? WHERE idUsuario = ?";

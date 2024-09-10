@@ -35,12 +35,14 @@ public class ModificarUsuario extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        int idUsuario = Integer.parseInt(request.getParameter("idUsuario"));
-
         try {
-            // Utilizar el método de tu interfaz para obtener el usuario por ID
-            Usuario usuario = interfaz.obtenerUsuarioPorId(idUsuario); // Llamada al método de la interfaz
+            int idUsuario = Integer.parseInt(request.getParameter("idUsuario"));
+            // Obtener el usuario por ID
+            Usuario usuario = interfaz.obtenerUsuarioPorId(idUsuario);
             request.setAttribute("usuario", usuario);
+
+            // Imprimir el ID del usuario para depuración
+            System.out.println("ID Usuario recibido en servlet: " + usuario.getIdUsuario());
 
             // Redirigir al JSP donde se editarán los datos
             RequestDispatcher dispatcher = request.getRequestDispatcher("/views/formModificarUsuario.jsp");
@@ -50,6 +52,7 @@ public class ModificarUsuario extends HttpServlet {
             throw new ServletException(e);
         }
     }
+
 }
 
 

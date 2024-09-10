@@ -1,7 +1,8 @@
 package modelo;
 
 public class Profesional extends Usuario {
-
+	
+	private int idUsuario;
 	private String tituloProfesional;
 	private String fechaIngresoProfesional;
 
@@ -16,10 +17,11 @@ public class Profesional extends Usuario {
 		this.fechaIngresoProfesional = fechaIngresoProfesional;
 	}
 	
-	public Profesional(String tituloProfesional, String fechaIngresoProfesional) {
-		this.tituloProfesional = tituloProfesional;
-		this.fechaIngresoProfesional = fechaIngresoProfesional;
-	}
+	 public Profesional(int idUsuario, String tituloProfesional, String fechaIngresoProfesional) {
+	        this.idUsuario = idUsuario;
+	        this.tituloProfesional = tituloProfesional;
+	        this.fechaIngresoProfesional = fechaIngresoProfesional;
+	    }
 
 	public String getTituloProfesional() {
 		return tituloProfesional;
@@ -35,6 +37,16 @@ public class Profesional extends Usuario {
 
 	public void setFechaIngresoProfesional(String fechaIngresoProfesional) {
 		this.fechaIngresoProfesional = fechaIngresoProfesional;
+	}
+	
+	
+
+	public int getIdUsuario() {
+		return idUsuario;
+	}
+
+	public void setIdUsuario(int idUsuario) {
+		this.idUsuario = idUsuario;
 	}
 
 	@Override

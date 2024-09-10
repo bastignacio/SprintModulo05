@@ -65,3 +65,8 @@ document.getElementById('userForm').addEventListener('submit', function(event) {
         alert('Por favor, complete todos los campos requeridos.');
     }
 });
+
+const cambiarTema = () => {
+    console.log("Cambiando tema"); // Esto debería aparecer en la consola al hacer clic
+    document.querySelector("body").getAttribute("data-bs-theme") === "light" ? temaOscuro() : temaClaro();
+};
