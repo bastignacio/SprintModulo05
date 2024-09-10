@@ -38,6 +38,11 @@ public interface Interfaz {
     
     void almacenarFormularioContacto(FormularioContacto formularioContacto);
     
+    Usuario obtenerUsuarioPorId(int idUsuario) throws SQLException;
+    
+	void actualizarUsuario(Usuario usuario) throws SQLException;
+	 
+    
     
     
 

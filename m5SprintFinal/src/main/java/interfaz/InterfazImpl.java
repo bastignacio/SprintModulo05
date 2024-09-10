@@ -201,6 +201,145 @@ public class InterfazImpl implements Interfaz {
 	    return usuarios; // Devuelve la lista de usuarios
 	}
 
+	@Override
+	public Usuario obtenerUsuarioPorId(int idUsuario) throws SQLException {
+	    Usuario usuario = null;
+
+	    String sql = "SELECT u.idUsuario, u.nombreUsuario, u.apellidoUsuario, u.runUsuario, u.correoUsuario, u.telefonoUsuario, u.tipoUsuario, " +
+	                 "c.nombreEmpresa, c.rutEmpresa, c.telefonoEmpresa, c.correoEmpresa, c.direccionEmpresa, c.comunaEmpresa, " +
+	                 "p.tituloProfesional, p.fechaIngresoProfesional, " +
+	                 "a.areaAdministrativo, a.experienciaPrevia " +
+	                 "FROM usuarios u " +
+	                 "LEFT JOIN clientes c ON u.idUsuario = c.idUsuario " +
+	                 "LEFT JOIN profesionales p ON u.idUsuario = p.idUsuario " +
+	                 "LEFT JOIN administrativos a ON u.idUsuario = a.idUsuario " +
+	                 "WHERE u.idUsuario = ?";
+
+	    try (PreparedStatement statement = conn.prepareStatement(sql)) {
+	        statement.setInt(1, idUsuario);
+	        ResultSet resultSet = statement.executeQuery();
+
+	        if (resultSet.next()) {
+	            usuario = new Usuario();
+	            usuario.setIdUsuario(resultSet.getInt("idUsuario"));
+	            usuario.setNombreUsuario(resultSet.getString("nombreUsuario"));
+	            usuario.setApellidoUsuario(resultSet.getString("apellidoUsuario"));
+	            usuario.setRunUsuario(resultSet.getString("runUsuario"));
+	            usuario.setCorreoUsuario(resultSet.getString("correoUsuario"));
+	            usuario.setTelefonoUsuario(resultSet.getString("telefonoUsuario"));
+	            usuario.setTipoUsuario(resultSet.getString("tipoUsuario"));
+
+	            String tipoUsuario = resultSet.getString("tipoUsuario");
+	            
+	            // Dependiendo del tipo de usuario, se rellenan los datos específicos
+	            switch (tipoUsuario) {
+	                case "cliente":
+	                    Cliente cliente = new Cliente();
+	                    cliente.setNombreEmpresa(resultSet.getString("nombreEmpresa"));
+	                    cliente.setRutEmpresa(resultSet.getString("rutEmpresa"));
+	                    cliente.setTelefonoEmpresa(resultSet.getString("telefonoEmpresa"));
+	                    cliente.setCorreoEmpresa(resultSet.getString("correoEmpresa"));
+	                    cliente.setDireccionEmpresa(resultSet.getString("direccionEmpresa"));
+	                    cliente.setComunaEmpresa(resultSet.getString("comunaEmpresa"));
+	                    usuario.setCliente(cliente);
+	                    break;
+
+	                case "profesional":
+	                    Profesional profesional = new Profesional();
+	                    profesional.setTituloProfesional(resultSet.getString("tituloProfesional"));
+	                    profesional.setFechaIngresoProfesional(resultSet.getString("fechaIngresoProfesional"));
+	                    usuario.setProfesional(profesional);
+	                    break;
+
+	                case "administrativo":
+	                    Administrativo administrativo = new Administrativo();
+	                    administrativo.setAreaAdministrativo(resultSet.getString("areaAdministrativo"));
+	                    administrativo.setExperienciaPrevia(resultSet.getString("experienciaPrevia"));
+	                    usuario.setAdministrativo(administrativo);
+	                    break;
+	            }
+	        }
+	    }
+
+	    return usuario;
+	}
+
+	
+	@Override
+    public void actualizarUsuario(Usuario usuario) throws SQLException {
+        String sql = "UPDATE usuarios SET nombreUsuario = ?, apellidoUsuario = ?, runUsuario = ?, " +
+                     "correoUsuario = ?, telefonoUsuario = ?, tipoUsuario = ? WHERE idUsuario = ?";
+
+        try (PreparedStatement statement = conn.prepareStatement(sql)) {
+            // Asignar los valores al PreparedStatement
+            statement.setString(1, usuario.getNombreUsuario());
+            statement.setString(2, usuario.getApellidoUsuario());
+            statement.setString(3, usuario.getRunUsuario());
+            statement.setString(4, usuario.getCorreoUsuario());
+            statement.setString(5, usuario.getTelefonoUsuario());
+            statement.setString(6, usuario.getTipoUsuario());
+            statement.setInt(7, usuario.getIdUsuario());
+
+            // Ejecutar la actualización del usuario
+            statement.executeUpdate();
+        }
+
+        // Actualizar los datos específicos de cliente, profesional o administrativo
+        if ("cliente".equals(usuario.getTipoUsuario())) {
+            actualizarCliente(usuario.getCliente());
+        } else if ("profesional".equals(usuario.getTipoUsuario())) {
+            actualizarProfesional(usuario.getProfesional());
+        } else if ("administrativo".equals(usuario.getTipoUsuario())) {
+            actualizarAdministrativo(usuario.getAdministrativo());
+        }
+    }
+
+    // Métodos para actualizar los datos específicos de cliente, profesional o administrativo
+    private void actualizarCliente(Cliente cliente) throws SQLException {
+        String sql = "UPDATE clientes SET nombreEmpresa = ?, rutEmpresa = ?, telefonoEmpresa = ?, " +
+                     "correoEmpresa = ?, direccionEmpresa = ?, comunaEmpresa = ? WHERE idUsuario = ?";
+
+        try (PreparedStatement statement = conn.prepareStatement(sql)) {
+            statement.setString(1, cliente.getNombreEmpresa());
+            statement.setString(2, cliente.getRutEmpresa());
+            statement.setString(3, cliente.getTelefonoEmpresa());
+            statement.setString(4, cliente.getCorreoEmpresa());
+            statement.setString(5, cliente.getDireccionEmpresa());
+            statement.setString(6, cliente.getComunaEmpresa());
+            statement.setInt(7, cliente.getIdUsuario());
+
+            statement.executeUpdate();
+        }
+    }
+
+    private void actualizarProfesional(Profesional profesional) throws SQLException {
+        String sql = "UPDATE profesionales SET tituloProfesional = ?, fechaIngresoProfesional = ? WHERE idUsuario = ?";
+        
+        System.out.println("SQL Query: " + sql);
+
+        
+        try (PreparedStatement statement = conn.prepareStatement(sql)) {
+            statement.setString(1, profesional.getTituloProfesional());
+            statement.setString(2, profesional.getFechaIngresoProfesional());
+            statement.setInt(3, profesional.getIdUsuario());
+
+            statement.executeUpdate();
+        }
+    }
+
+    private void actualizarAdministrativo(Administrativo administrativo) throws SQLException {
+        String sql = "UPDATE administrativos SET areaAdministrativo = ?, experienciaPrevia = ? WHERE idUsuario = ?";
+
+        try (PreparedStatement statement = conn.prepareStatement(sql)) {
+            statement.setString(1, administrativo.getAreaAdministrativo());
+            statement.setString(2, administrativo.getExperienciaPrevia());
+            statement.setInt(3, administrativo.getIdUsuario());
+
+            statement.executeUpdate();
+        }
+    }
+
+	
 
 	@Override
 	public void almacenarFormularioContacto(FormularioContacto formulario) {
