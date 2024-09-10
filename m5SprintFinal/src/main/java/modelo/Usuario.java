@@ -8,13 +8,18 @@ public class Usuario {
 	private String runUsuario;
 	private String correoUsuario;
 	private String telefonoUsuario;
-	
+	private String tipoUsuario;
+
+	private Cliente cliente;
+	private Profesional profesional;
+	private Administrativo administrativo;
+
 	public Usuario() {
 		super();
 	}
-	
+
 	public Usuario(int idUsuario, String nombreUsuario, String apellidoUsuario, String runUsuario, String correoUsuario,
-			String telefonoUsuario) {
+			String telefonoUsuario, String tipoUsuario) {
 		super();
 		this.idUsuario = idUsuario;
 		this.nombreUsuario = nombreUsuario;
@@ -22,6 +27,19 @@ public class Usuario {
 		this.runUsuario = runUsuario;
 		this.correoUsuario = correoUsuario;
 		this.telefonoUsuario = telefonoUsuario;
+		this.tipoUsuario = tipoUsuario;
+
+	}
+
+	public Usuario(String nombreUsuario, String apellidoUsuario, String runUsuario, String correoUsuario,
+			String telefonoUsuario, String tipoUsuario) {
+		super();
+		this.nombreUsuario = nombreUsuario;
+		this.apellidoUsuario = apellidoUsuario;
+		this.runUsuario = runUsuario;
+		this.correoUsuario = correoUsuario;
+		this.telefonoUsuario = telefonoUsuario;
+		this.tipoUsuario = tipoUsuario;
 
 	}
 
@@ -74,6 +92,38 @@ public class Usuario {
 
 	}
 
+	public String getTipoUsuario() {
+		return tipoUsuario;
+	}
+
+	public void setTipoUsuario(String tipoUsuario) {
+		this.tipoUsuario = tipoUsuario;
+	}
+
+	public Cliente getCliente() {
+		return cliente;
+	}
+
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
+	}
+
+	public Profesional getProfesional() {
+		return profesional;
+	}
+
+	public void setProfesional(Profesional profesional) {
+		this.profesional = profesional;
+	}
+
+	public Administrativo getAdministrativo() {
+		return administrativo;
+	}
+
+	public void setAdministrativo(Administrativo administrativo) {
+		this.administrativo = administrativo;
+	}
+
 	@Override
 	public String toString() {
 
@@ -81,5 +131,5 @@ public class Usuario {
 				+ apellidoUsuario + ", runUsuario=" + runUsuario + ", correoUsuario=" + correoUsuario
 				+ ", telefonoUsuario=" + telefonoUsuario + "]";
 	}
-	
+
 }

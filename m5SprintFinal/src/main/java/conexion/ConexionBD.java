@@ -15,7 +15,7 @@ public class ConexionBD {
 		// USER
 		// PASSWORD
 		
-		String url = "jdbc:mysql://localhost:3306/prevencion_riesgos";
+		String url = "jdbc:mysql://localhost:3306/sprintmodulo05";
 		String driver = "com.mysql.jdbc.Driver";
 		String user = "root";
 		String password = "6969";
