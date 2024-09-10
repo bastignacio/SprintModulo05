@@ -25,29 +25,6 @@
 
 				<% if (session.getAttribute("username") != null) { %>
 				<li class="nav-item"><a class="nav-link" href="Contacto">Contacto</a></li>
-				
-			
-<%--  				
-				Para hacer el navbar con la vista segun los permisos de los usuarios
-				
-				<% switch(tipoUsuario) {
-				case 1:
-					// "Administrativo"
-					break;
-				case 2:
-					// Cliente
-					break;
-				case 3:
-					// Profesional
-					break;
-				case 99:
-					//Admin
-				default:
-					//No registrado
-				}	
-				
-				%> 
---%>
 
 				<li class="nav-item dropdown"><a
 					class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false"> Crear </a>
@@ -63,7 +40,7 @@
 					role="button" data-bs-toggle="dropdown" aria-expanded="false"> Listar </a>
 					<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
 						<li><a class="dropdown-item" href="ListarCapacitacion">Listar Capacitación</a></li>
-						<li><a class="dropdown-item" href="ListarUsuario">Listar Usuarios</a></li>
+						<li><a class="dropdown-item" href="ListarUsuarios">Listar Usuarios</a></li>
 						<li><a class="dropdown-item" href="#">Listar Visitas</a></li>
 						<li><a class="dropdown-item" href="#">Listar Pagos</a></li>
 						<li><a class="dropdown-item" href="#">Listar Asesorias</a></li>

@@ -1,24 +1,34 @@
 package modelo;
 
 public class Cliente extends Usuario {
-
-	private String rutEmpresa;
+	
 	private String nombreEmpresa;
+	private String rutEmpresa;
 	private String telefonoEmpresa;
 	private String correoEmpresa;
 	private String direccionEmpresa;
 	private String comunaEmpresa;
-	
+
 	public Cliente() {
 		super();
 	}
-	
-	public Cliente(int idUsuario, String nombreUsuario, String apellidoUsuario, String runUsuario, String correoUsuario,
-			String telefonoUsuario, String rutEmpresa, String nombreEmpresa, String telefonoEmpresa,
+
+	public Cliente(int idUsuario, String nombreUsuario, String apellidoUsuario, String runUsuario, String correoUsuario, String telefonoUsuario, String tipoUsuario, 
+			String nombreEmpresa, String rutEmpresa, String telefonoEmpresa,
 			String correoEmpresa, String direccionEmpresa, String comunaEmpresa) {
-		super(idUsuario, nombreUsuario, apellidoUsuario, runUsuario, correoUsuario, telefonoUsuario);
+		super(idUsuario, nombreUsuario, apellidoUsuario, runUsuario, correoUsuario, telefonoUsuario, tipoUsuario);
 		this.rutEmpresa = rutEmpresa;
 		this.nombreEmpresa = nombreEmpresa;
+		this.telefonoEmpresa = telefonoEmpresa;
+		this.correoEmpresa = correoEmpresa;
+		this.direccionEmpresa = direccionEmpresa;
+		this.comunaEmpresa = comunaEmpresa;
+	}
+
+	public Cliente(String nombreEmpresa, String rutEmpresa, String telefonoEmpresa, String correoEmpresa, String direccionEmpresa, String comunaEmpresa) {
+		super();
+		this.nombreEmpresa = nombreEmpresa;
+		this.rutEmpresa = rutEmpresa;
 		this.telefonoEmpresa = telefonoEmpresa;
 		this.correoEmpresa = correoEmpresa;
 		this.direccionEmpresa = direccionEmpresa;
@@ -75,16 +85,9 @@ public class Cliente extends Usuario {
 
 	@Override
 	public String toString() {
-		return super.toString() + "Cliente [rutEmpresa=" + rutEmpresa + ", nombreEmpresa=" + nombreEmpresa + ", telefonoEmpresa="
-				+ telefonoEmpresa + ", correoEmpresa=" + correoEmpresa + ", direccionEmpresa=" + direccionEmpresa
-				+ ", comunaEmpresa=" + comunaEmpresa + "]";
+		return super.toString() + "Cliente [rutEmpresa=" + rutEmpresa + ", nombreEmpresa=" + nombreEmpresa
+				+ ", telefonoEmpresa=" + telefonoEmpresa + ", correoEmpresa=" + correoEmpresa + ", direccionEmpresa="
+				+ direccionEmpresa + ", comunaEmpresa=" + comunaEmpresa + "]";
 	}
 
-	
-	
-	
-
-	
-
 }
-

@@ -3,16 +3,23 @@ package modelo;
 public class Administrativo extends Usuario {
 
 	private String areaAdministrativo;
-	private int experienciaPrevia;
+	private String experienciaPrevia;
 
 	public Administrativo() {
 		super();
 	}
 
 	public Administrativo(int idUsuario, String nombreUsuario, String apellidoUsuario, String runUsuario,
-			String correoUsuario, String telefonoUsuario, String areaAdministrativo, int experienciaPrevia) {
-		super(idUsuario, nombreUsuario, apellidoUsuario, runUsuario, correoUsuario, telefonoUsuario);
+			String correoUsuario, String telefonoUsuario, String tipoUsuario, String areaAdministrativo, String experienciaPrevia) {
+		super(idUsuario, nombreUsuario, apellidoUsuario, runUsuario, correoUsuario, telefonoUsuario, tipoUsuario);
 
+		this.areaAdministrativo = areaAdministrativo;
+		this.experienciaPrevia = experienciaPrevia;
+	}
+
+	
+	public Administrativo(String areaAdministrativo, String experienciaPrevia) {
+		super();
 		this.areaAdministrativo = areaAdministrativo;
 		this.experienciaPrevia = experienciaPrevia;
 	}
@@ -25,11 +32,11 @@ public class Administrativo extends Usuario {
 		this.areaAdministrativo = areaAdministrativo;
 	}
 
-	public int getExperienciaPrevia() {
+	public String getExperienciaPrevia() {
 		return experienciaPrevia;
 	}
 
-	public void setExperienciaPrevia(int experienciaPrevia) {
+	public void setExperienciaPrevia(String experienciaPrevia) {
 		this.experienciaPrevia = experienciaPrevia;
 	}
 
