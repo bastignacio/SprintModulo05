@@ -25,11 +25,19 @@
 
     <!-- Formulario para modificar el usuario -->
     <form action="ActualizarUsuario" method="post">
+    
         <input type="hidden" name="idUsuario" value="<%= usuario.getIdUsuario() %>">
-        <%= usuario.getIdUsuario() %>
-        
+			
+			<%--  
+        	
+        	DEBUG: PARA MOSTRAR EL ID ALMACENADO EN LA CLASE ADMINISTRATIVO, DEL OBJETO USUARIO, QUE SE EXTRAJO DE LA DB
+        	
+       		 <%= usuario.getIdUsuario() %> 
+       		 
+       		 --%>
 
-        <div class="mb-3">
+
+			<div class="mb-3">
             <label for="nombreUsuario" class="form-label">Nombre:</label>
             <input type="text" class="form-control" id="nombreUsuario" name="nombreUsuario" value="<%= usuario.getNombreUsuario() %>">
         </div>
@@ -56,7 +64,7 @@
 
         <div class="mb-3">
             <label for="tipoUsuario" class="form-label">Tipo Usuario:</label>
-            <input type="text" class="form-control" id="tipoUsuario" name="tipoUsuario" value="<%= usuario.getTipoUsuario() %>" readonly>
+            <input type="text" class="form-control" id="tipoUsuario" name="tipoUsuario" value="<%= usuario.getTipoUsuario() %>" style="text-transform:uppercase" readonly>
         </div>
 
         <!-- Mostrar campos dinámicos según el tipo de usuario -->
@@ -118,8 +126,8 @@
         %>
                 <!-- Campos específicos para Administrativo -->
                 <div class="mb-3">
-                    <label for="areaAdministrativa" class="form-label">Área Administrativa:</label>
-                    <input type="text" class="form-control" id="areaAdministrativa" name="areaAdministrativa" value="<%= administrativo.getAreaAdministrativo() %>">
+                    <label for="areaAdministrativo" class="form-label">Área Administrativa:</label>
+                    <input type="text" class="form-control" id="areaAdministrativo" name="areaAdministrativo" value="<%= administrativo.getAreaAdministrativo() %>">
                 </div>
 
                 <div class="mb-3">

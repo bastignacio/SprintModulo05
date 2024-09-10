@@ -12,8 +12,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import interfaz.Interfaz;
-import interfaz.InterfazImpl;
+import dao.Interfaz;
+import dao.InterfazImpl;
 import modelo.Usuario;
 
 

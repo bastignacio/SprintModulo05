@@ -10,9 +10,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import dao.Interfaz;
+import dao.InterfazImpl;
 import modelo.Usuario;
-import interfaz.Interfaz;
-import interfaz.InterfazImpl;
 
 /**
  * Servlet implementation class ModificarUsuario

@@ -5,49 +5,30 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class ConexionBD {
-	
-	private static Connection conn = null;
-	
-	private ConexionBD() {
-		
-		
-		// MODIFICAR VALORES DE LA CONEXIÓN SEGUN EL LOCALHOST DE CADA UNO
-		// USER
-		// PASSWORD
-		
-		String url = "jdbc:mysql://localhost:3306/sprintmodulo05";
-		String driver = "com.mysql.jdbc.Driver";
-		String user = "root";
-		String password = "6969";
+    private static Connection conn = null;
+    private static final String url = "jdbc:mysql://localhost:3306/sprintmodulo05";
+    private static final String user = "root";
+    private static final String password = "6969";
+    private static final String driver = "com.mysql.cj.jdbc.Driver";  // Actualiza el driver si es necesario
 
-		try {
-			Class.forName(driver);
-			try {
-				conn = DriverManager.getConnection(url, user, password);
-			} catch (SQLException se) {
-				// Handle errors for JDBC
-				se.printStackTrace();
-			}
-		} catch (Exception ex) {
-			// Handle errors for Class.forName
-			ex.printStackTrace();
-		}
-	}
+    // Método para obtener la conexión a la base de datos
+    public static Connection getConnection() throws SQLException {
+        try {
+            // Si la conexión es nula o está cerrada, se crea una nueva
+            if (conn == null || conn.isClosed()) {
+                Class.forName(driver);  // Cargar el driver MySQL
+                conn = DriverManager.getConnection(url, user, password);  // Crear nueva conexión
+                System.out.println("Conexión creada: " + conn);
+            }
+        } catch (ClassNotFoundException e) {
+            System.out.println("Error al cargar el driver: " + e.getMessage());
+            e.printStackTrace();
+        } catch (SQLException e) {
+            System.out.println("Error al obtener la conexión: " + e.getMessage());
+            e.printStackTrace();
+        }
 
-	public static Connection getConnection() {
-		if (conn == null) {
-			new ConexionBD();
-			System.out.println("Se creo la conexion"); // DEBUG
-			System.out.println("Metodo getConnection: " + conn);
-
-			return conn;
-		} else {
-			System.out.println("Retorno conexion..."); // DEBUG
-			return conn;
-		}
-	}
-
-	
-	
-
+        return conn;  // Retorna la conexión activa o recién creada
+    }
 }
+
