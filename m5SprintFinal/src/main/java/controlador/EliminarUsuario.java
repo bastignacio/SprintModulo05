@@ -36,7 +36,12 @@ public class EliminarUsuario extends HttpServlet {
 			e.printStackTrace();
 		}
 		
-        interfaz.eliminarUsuario(idUsuario);
+        try {
+			interfaz.eliminarUsuario(idUsuario);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
         
         // Redirigir de nuevo a la lista de usuarios
         response.sendRedirect("ListarUsuarios");

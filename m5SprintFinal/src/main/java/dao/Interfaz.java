@@ -42,7 +42,7 @@ public interface Interfaz {
     
 	void actualizarUsuario(Usuario usuario) throws SQLException;
 	
-	public void eliminarUsuario(int idUsuario);
+	public void eliminarUsuario(int idUsuario) throws SQLException;
 	
 	
 	List<Cliente> obtenerEmpresas() throws SQLException;
