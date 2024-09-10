@@ -38,8 +38,6 @@ public class CrearUsuario extends HttpServlet {
 		}
 	}
 	
-	
-
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
@@ -56,11 +54,12 @@ public class CrearUsuario extends HttpServlet {
 		String telefonoUsuario = request.getParameter("telefonoUsuario");
 		
 		String tipoUsuario = request.getParameter("userType");
-		System.out.println("Tipo de usuario recibido: " + tipoUsuario);
+
 		
 		Usuario newUsuario= new Usuario(nombreUsuario, apellidoUsuario, runUsuario, correoUsuario, telefonoUsuario, tipoUsuario);
 				
 		int idUsuario = 0;
+		
 		try {
 		    idUsuario = interfaz.almacenarUsuarios(newUsuario);  // Ahora almacenamos y obtenemos el idUsuario
 		} catch (SQLException e) {
@@ -99,7 +98,7 @@ public class CrearUsuario extends HttpServlet {
 			Administrativo newAdministrativo = new Administrativo(areaAdministrativo, experienciaPrevia);
 			
 			try {
-				interfaz.almacenarAdministrativo(newAdministrativo);
+				interfaz.almacenarAdministrativo(newAdministrativo, idUsuario);
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
@@ -116,13 +115,11 @@ public class CrearUsuario extends HttpServlet {
 			Profesional newProfesional = new Profesional(tituloProfesional,fechaIngresoProfesional);
 			
 			try {
-				interfaz.almacenarProfesional(newProfesional);
+				interfaz.almacenarProfesional(newProfesional, idUsuario);
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
-			
-			System.out.println(tituloProfesional + fechaIngresoProfesional);
-			
+				
 			request.getRequestDispatcher("/views/crearUsuario.jsp").forward(request, response);
 
 			break;		

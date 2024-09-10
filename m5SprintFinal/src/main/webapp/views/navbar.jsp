@@ -40,7 +40,7 @@
 					role="button" data-bs-toggle="dropdown" aria-expanded="false"> Listar </a>
 					<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
 						<li><a class="dropdown-item" href="ListarCapacitacion">Listar Capacitación</a></li>
-						<li><a class="dropdown-item" href="ListarUsuario">Listar Usuarios</a></li>
+						<li><a class="dropdown-item" href="ListarUsuarios">Listar Usuarios</a></li>
 						<li><a class="dropdown-item" href="#">Listar Visitas</a></li>
 						<li><a class="dropdown-item" href="#">Listar Pagos</a></li>
 						<li><a class="dropdown-item" href="#">Listar Asesorias</a></li>

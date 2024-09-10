@@ -1,9 +1,9 @@
 package modelo;
 
 public class Cliente extends Usuario {
-
-	private String rutEmpresa;
+	
 	private String nombreEmpresa;
+	private String rutEmpresa;
 	private String telefonoEmpresa;
 	private String correoEmpresa;
 	private String direccionEmpresa;
@@ -13,8 +13,8 @@ public class Cliente extends Usuario {
 		super();
 	}
 
-	public Cliente(int idUsuario, String nombreUsuario, String apellidoUsuario, String runUsuario, String correoUsuario,
-			String telefonoUsuario, String tipoUsuario, String rutEmpresa, String nombreEmpresa, String telefonoEmpresa,
+	public Cliente(int idUsuario, String nombreUsuario, String apellidoUsuario, String runUsuario, String correoUsuario, String telefonoUsuario, String tipoUsuario, 
+			String nombreEmpresa, String rutEmpresa, String telefonoEmpresa,
 			String correoEmpresa, String direccionEmpresa, String comunaEmpresa) {
 		super(idUsuario, nombreUsuario, apellidoUsuario, runUsuario, correoUsuario, telefonoUsuario, tipoUsuario);
 		this.rutEmpresa = rutEmpresa;
@@ -25,10 +25,10 @@ public class Cliente extends Usuario {
 		this.comunaEmpresa = comunaEmpresa;
 	}
 
-	public Cliente(String rutEmpresa, String nombreEmpresa, String telefonoEmpresa, String correoEmpresa, String direccionEmpresa, String comunaEmpresa) {
+	public Cliente(String nombreEmpresa, String rutEmpresa, String telefonoEmpresa, String correoEmpresa, String direccionEmpresa, String comunaEmpresa) {
 		super();
-		this.rutEmpresa = rutEmpresa;
 		this.nombreEmpresa = nombreEmpresa;
+		this.rutEmpresa = rutEmpresa;
 		this.telefonoEmpresa = telefonoEmpresa;
 		this.correoEmpresa = correoEmpresa;
 		this.direccionEmpresa = direccionEmpresa;

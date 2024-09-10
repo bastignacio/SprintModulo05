@@ -29,9 +29,9 @@ public interface Interfaz {
     List<Usuario> obtenerUsuarios() throws SQLException;
 	/* Editar */
     
-	void almacenarProfesional(Profesional profesional) throws SQLException;
+	void almacenarProfesional(Profesional profesional, int idUsuario) throws SQLException;
 	void almacenarCliente(Cliente cliente, int idUsuario) throws SQLException;
-	void almacenarAdministrativo(Administrativo administrativo) throws SQLException;
+	void almacenarAdministrativo(Administrativo administrativo, int idUsuario) throws SQLException;
     
     
     /*---- Manipulación de Formulario ----*/
