@@ -1,20 +1,16 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html lang="es" data-bs-theme="dark">
+<html lang="es">
 <head>
 <meta charset="UTF-8">
 <title>Prevención de Riesgos PDR</title>
-<link
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
-	rel="stylesheet">
-<link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/css/style.css">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/style.css">
 
 
 </head>
 
-<body>
+<body data-bs-theme="dark">
 
 
 	<!-- Se agrega el navbar creado en otro archivo jsp para poder trabajar de forma modular -->
@@ -47,7 +43,7 @@
 	<!-- Footer -->
 	<%@ include file='footer.jsp'%>
 	<!-- Bootstrap JS -->
-	<script
-		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
 </body>
 </html>

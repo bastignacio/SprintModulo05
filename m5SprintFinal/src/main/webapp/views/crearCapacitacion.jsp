@@ -10,10 +10,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Crear Nueva Capacitación</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/style.css">
 </head>
-<body>
 
-<jsp:include page="navbar.jsp" />  <!-- Incluir el navbar -->
+<body data-bs-theme="dark">
+
+<%@ include file='navbar.jsp'%>  <!-- Incluir el navbar -->
 
 <div class="container mt-5">
     <div class="row">
@@ -44,6 +46,9 @@
         </div>
     </div>
 </div>
+
+    <%@ include file='footer.jsp'%>
+
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
