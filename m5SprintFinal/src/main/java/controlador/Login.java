@@ -44,8 +44,8 @@ public class Login extends HttpServlet {
 	        HttpSession session = request.getSession();
 	        session.setAttribute("username", username);
 
-	        // Redirige a la página contacto.jsp
-	        response.sendRedirect(request.getContextPath() + "/Contacto");
+	        // Redirige a la página Index.jsp
+	        response.sendRedirect(request.getContextPath() + "/Index");
 	    } else {
 	        // Si el login falla, redirige de nuevo al login con un mensaje de error
 	        request.setAttribute("errorMessage", "Nombre de usuario o contraseña incorrectos");

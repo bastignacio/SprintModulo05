@@ -4,18 +4,18 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-public class ConexionDB {
+public class ConexionBD {
 	
 	private static Connection conn = null;
 	
-	private ConexionDB() {
+	private ConexionBD() {
 		
 		
 		// MODIFICAR VALORES DE LA CONEXIÓN SEGUN EL LOCALHOST DE CADA UNO
 		// USER
 		// PASSWORD
 		
-		String url = "jdbc:mysql://localhost:3306/prevencion_riesgos";
+		String url = "jdbc:mysql://localhost:3306/sprintmodulo05";
 		String driver = "com.mysql.jdbc.Driver";
 		String user = "root";
 		String password = "6969";
@@ -36,7 +36,7 @@ public class ConexionDB {
 
 	public static Connection getConnection() {
 		if (conn == null) {
-			new ConexionDB();
+			new ConexionBD();
 			System.out.println("Se creo la conexion"); // DEBUG
 			System.out.println("Metodo getConnection: " + conn);
 

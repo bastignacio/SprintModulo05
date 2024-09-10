@@ -1,49 +1,49 @@
 package modelo;
 
-
-/*
- * Clase hija de la clase Padre Usuario llamada Administrativo que permite obtener los registros sobre un Usuario de tipo Administrativo. 
- */
 public class Administrativo extends Usuario {
-	private String area;
-	private String experiencia;
-	
-	// Constructor vacio de la clase Administrativo que no recibe parametros.
+
+	private String areaAdministrativo;
+	private String experienciaPrevia;
+
 	public Administrativo() {
 		super();
-		
-	}// Cierra el constructor vacio Administrativo.
-	
-	// Constructor que posee los parametros heredados de la clase Padre Usuario y los parametros propios de la clase hija Administrativo
-	public Administrativo(String nombre, String fecha, int run, String area, String experiencia) {
-		super();
-		this.area = area;
-		this.experiencia = experiencia;
-	} // Cierra el constructor con parametros de Administrativo.
-	
+	}
 
-	public String getArea() {
-		return area;
+	public Administrativo(int idUsuario, String nombreUsuario, String apellidoUsuario, String runUsuario,
+			String correoUsuario, String telefonoUsuario, String tipoUsuario, String areaAdministrativo, String experienciaPrevia) {
+		super(idUsuario, nombreUsuario, apellidoUsuario, runUsuario, correoUsuario, telefonoUsuario, tipoUsuario);
+
+		this.areaAdministrativo = areaAdministrativo;
+		this.experienciaPrevia = experienciaPrevia;
 	}
-	public void setArea(String area) {
-		this.area = area;
-	}
-	public String getExperiencia() {
-		return experiencia;
-	}
-	public void setExperiencia(String experiencia) {
-		this.experiencia = experiencia;
-	}
+
 	
-/*
-* Metodo toString() de la clase Administrativo.
-* Sobrescribe el metodo ToString para presentar por consola los datos asociados al Usuario Administrativo registrado.
-*/
+	public Administrativo(String areaAdministrativo, String experienciaPrevia) {
+		super();
+		this.areaAdministrativo = areaAdministrativo;
+		this.experienciaPrevia = experienciaPrevia;
+	}
+
+	public String getAreaAdministrativo() {
+		return areaAdministrativo;
+	}
+
+	public void setAreaAdministrativo(String areaAdministrativo) {
+		this.areaAdministrativo = areaAdministrativo;
+	}
+
+	public String getExperienciaPrevia() {
+		return experienciaPrevia;
+	}
+
+	public void setExperienciaPrevia(String experienciaPrevia) {
+		this.experienciaPrevia = experienciaPrevia;
+	}
+
 	@Override
 	public String toString() {
-		return "Datos del Administrativo: \nÁrea: " + area + "\nExperiencia: " + experiencia;
+		return super.toString() + "Administrativo [areaAdministrativo=" + areaAdministrativo + ", experienciaPrevia="
+				+ experienciaPrevia + "]";
 	}
-	
-	
-	
-} // Cierra la clase Administrativo.
+
+}

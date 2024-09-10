@@ -1,3 +1,5 @@
+
+
 document.getElementById('userType').addEventListener('change', function() {
     var clienteFields = document.getElementById('clienteFields');
     var administrativoFields = document.getElementById('administrativoFields');
