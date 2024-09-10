@@ -1,3 +1,6 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <html lang="es" data-bs-theme="auto">
 <head>
@@ -12,7 +15,7 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
 	<div class="container-fluid">
         <button onclick="cambiarTema()" class="btn rounded-fill"><i id="dl-icon" class="bi bi-moon-fill"></i></button>
-		<a class="navbar-brand" href="Index">Prevenci髇 Segura</a>
+		<a class="navbar-brand" href="Index">Prevenci贸n Segura</a>
 		<button class="navbar-toggler" type="button" data-bs-toggle="collapse"
 			data-bs-target="#navbarNav" aria-controls="navbarNav"
 			aria-expanded="false" aria-label="Toggle navigation">
@@ -37,7 +40,7 @@
 						Crear </a>
 					<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
 						<li><a class="dropdown-item" href="CrearCapacitacion">Crear
-								Capacitaci髇</a></li>
+								Capacitaci贸n</a></li>
 						<li><a class="dropdown-item" href="CrearUsuario">Crear
 								Usuario</a></li>
 					</ul></li>
@@ -48,12 +51,12 @@
 						Listar </a>
 					<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
 						<li><a class="dropdown-item" href="ListarCapacitacion">Listar
-								Capacitaci髇</a></li>
+								Capacitaci贸n</a></li>
 						<li><a class="dropdown-item" href="ListarUsuarios">Listar
 								Usuarios</a></li>
 					</ul></li>
  
-				<!-- Bot髇 de Logout -->
+				<!-- Bot贸n de Logout -->
 				<li class="nav-item"><a class="nav-link"
 					href="${pageContext.request.contextPath}/logout">Logout</a></li>
  
