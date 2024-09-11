@@ -17,121 +17,137 @@ import modelo.Profesional;
 import modelo.Usuario;
 
 /**
- * Servlet implementation class ActualizarUsuario
+ * Servlet que maneja la actualización de usuarios en el sistema. Este servlet
+ * procesa la solicitud para actualizar los datos de un usuario, ya sea
+ * Profesional, Administrativo o Cliente.
+ * 
+ * @author Ariel Alfaro
+ * @author Bastian Muñoz
+ * @author Bastian Espinosa
+ * @author Joshua Montt
+ * @author Nicolas Gajardo
+ * @version 1.0
  */
 @WebServlet("/ActualizarUsuario")
 public class ActualizarUsuario extends HttpServlet {
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-    // Instancia de la interfaz
-    private Interfaz interfaz;
+	// Instancia de la interfaz para la manipulación de datos en la base de datos
+	private Interfaz interfaz;
 
-    // Constructor explícito para inicializar la interfaz
-    public ActualizarUsuario() {
-        try {
-            interfaz = new InterfazImpl(); // Inicialización de la interfaz
-        } catch (SQLException e) {
-            e.printStackTrace();
-            throw new RuntimeException("Error al inicializar InterfazImpl", e);
-        }
-    }
+	/**
+	 * Constructor que inicializa la interfaz para la interacción con la base de
+	 * datos. Lanza una excepción en caso de que haya un error al inicializar la
+	 * conexión a la base de datos.
+	 */
+	public ActualizarUsuario() {
+		try {
+			interfaz = new InterfazImpl(); // Inicialización de la interfaz para interactuar con la base de datos
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new RuntimeException("Error al inicializar InterfazImpl", e);
+		}
+	}
 
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // Obtener los parámetros del formulario
-        int idUsuario = Integer.parseInt(request.getParameter("idUsuario"));
-        System.out.println("ID Usuario para actualizar: " + idUsuario);
-        
-        String nombre = request.getParameter("nombreUsuario");
-        String apellido = request.getParameter("apellidoUsuario");
-        String run = request.getParameter("runUsuario");
-        String correo = request.getParameter("correoUsuario");
-        String telefono = request.getParameter("telefonoUsuario");
-        String tipoUsuario = request.getParameter("tipoUsuario");
+	/**
+	 * Maneja la solicitud POST para actualizar los datos de un usuario. Este método
+	 * obtiene los datos del usuario desde el formulario y actualiza los registros
+	 * correspondientes en la base de datos.
+	 * 
+	 * @param request  El objeto HttpServletRequest que contiene la solicitud del
+	 *                 cliente.
+	 * @param response El objeto HttpServletResponse que contiene la respuesta del
+	 *                 servlet.
+	 * @throws ServletException Si ocurre un error de procesamiento del servlet.
+	 * @throws IOException      Si ocurre un error de E/S.
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		// Obtener los parámetros enviados desde el formulario
+		int idUsuario = Integer.parseInt(request.getParameter("idUsuario"));
+		System.out.println("ID Usuario para actualizar: " + idUsuario);
 
-        try {
-            // Obtener el usuario por su ID
-            Usuario usuario = interfaz.obtenerUsuarioPorId(idUsuario);
+		String nombre = request.getParameter("nombreUsuario");
+		String apellido = request.getParameter("apellidoUsuario");
+		String run = request.getParameter("runUsuario");
+		String correo = request.getParameter("correoUsuario");
+		String telefono = request.getParameter("telefonoUsuario");
+		String tipoUsuario = request.getParameter("tipoUsuario");
 
-            // Actualizar los datos básicos del usuario
-            usuario.setNombreUsuario(nombre);
-            usuario.setApellidoUsuario(apellido);
-            usuario.setRunUsuario(run);
-            usuario.setCorreoUsuario(correo);
-            usuario.setTelefonoUsuario(telefono);
-            usuario.setTipoUsuario(tipoUsuario);
+		try {
+			// Obtener el usuario de la base de datos por su ID
+			Usuario usuario = interfaz.obtenerUsuarioPorId(idUsuario);
 
-            // Si el tipo de usuario es profesional, actualiza los datos del profesional
-            if ("profesional".equals(tipoUsuario)) {
-                String tituloProfesional = request.getParameter("tituloProfesional");
-                String fechaIngreso = request.getParameter("fechaIngresoProfesional");
+			// Actualizar los datos básicos del usuario
+			usuario.setNombreUsuario(nombre);
+			usuario.setApellidoUsuario(apellido);
+			usuario.setRunUsuario(run);
+			usuario.setCorreoUsuario(correo);
+			usuario.setTelefonoUsuario(telefono);
+			usuario.setTipoUsuario(tipoUsuario);
 
-                // Obtener el objeto Profesional del usuario y actualizar los datos
-                Profesional profesional = usuario.getProfesional();
-                if (profesional == null) {
-                    profesional = new Profesional();
-                    usuario.setProfesional(profesional); // Si no existe, asignar un nuevo objeto
-                }
-                profesional.setTituloProfesional(tituloProfesional);
-                profesional.setFechaIngresoProfesional(fechaIngreso);
+			// Verificar el tipo de usuario y actualizar sus datos específicos
+			if ("profesional".equals(tipoUsuario)) {
+				String tituloProfesional = request.getParameter("tituloProfesional");
+				String fechaIngreso = request.getParameter("fechaIngresoProfesional");
 
-                // Asegurar que el idUsuario también se asigne al objeto profesional
-                profesional.setIdUsuario(usuario.getIdUsuario());
-                
-            } else if("administrativo".equals(tipoUsuario)) {
-            	
-            	String areaAdministrativo = request.getParameter("areaAdministrativo");
-                String experienciaPrevia = request.getParameter("experienciaPrevia");
+				// Obtener o crear el objeto Profesional asociado al usuario y actualizar los
+				// datos
+				Profesional profesional = usuario.getProfesional();
+				if (profesional == null) {
+					profesional = new Profesional();
+					usuario.setProfesional(profesional); // Crear y asignar un nuevo objeto si no existe
+				}
+				profesional.setTituloProfesional(tituloProfesional);
+				profesional.setFechaIngresoProfesional(fechaIngreso);
+				profesional.setIdUsuario(usuario.getIdUsuario());
 
-                // Obtener el objeto Profesional del usuario y actualizar los datos
-                Administrativo administrativo = usuario.getAdministrativo();
-                if (administrativo == null) {
-                	administrativo = new Administrativo();
-                    usuario.setAdministrativo(administrativo); // Si no existe, asignar un nuevo objeto
-                }
-                administrativo.setAreaAdministrativo(areaAdministrativo);
-                administrativo.setExperienciaPrevia(experienciaPrevia);
+			} else if ("administrativo".equals(tipoUsuario)) {
+				// Actualizar datos del Administrativo
+				String areaAdministrativo = request.getParameter("areaAdministrativo");
+				String experienciaPrevia = request.getParameter("experienciaPrevia");
 
-                // Asegurar que el idUsuario también se asigne al objeto profesional
-                administrativo.setIdUsuario(usuario.getIdUsuario());
-            	
-            } else if ("cliente".equals(tipoUsuario)) {
-            	
-            	String nombreEmpresa = request.getParameter("nombreEmpresa");
-                String rutEmpresa = request.getParameter("rutEmpresa");
-                String telefonoEmpresa = request.getParameter("telefonoEmpresa");
-                String correoEmpresa = request.getParameter("correoEmpresa");
-                String direccionEmpresa = request.getParameter("direccionEmpresa");
-                String comunaEmpresa = request.getParameter("comunaEmpresa");
+				Administrativo administrativo = usuario.getAdministrativo();
+				if (administrativo == null) {
+					administrativo = new Administrativo();
+					usuario.setAdministrativo(administrativo); // Crear y asignar un nuevo objeto si no existe
+				}
+				administrativo.setAreaAdministrativo(areaAdministrativo);
+				administrativo.setExperienciaPrevia(experienciaPrevia);
+				administrativo.setIdUsuario(usuario.getIdUsuario());
 
+			} else if ("cliente".equals(tipoUsuario)) {
+				// Actualizar datos del Cliente
+				String nombreEmpresa = request.getParameter("nombreEmpresa");
+				String rutEmpresa = request.getParameter("rutEmpresa");
+				String telefonoEmpresa = request.getParameter("telefonoEmpresa");
+				String correoEmpresa = request.getParameter("correoEmpresa");
+				String direccionEmpresa = request.getParameter("direccionEmpresa");
+				String comunaEmpresa = request.getParameter("comunaEmpresa");
 
-                // Obtener el objeto Profesional del usuario y actualizar los datos
-                Cliente cliente = usuario.getCliente();
-                if (cliente == null) {
-                	cliente = new Cliente();
-                    usuario.setCliente(cliente); // Si no existe, asignar un nuevo objeto
-                }
-                cliente.setNombreEmpresa(nombreEmpresa);
-                cliente.setRutEmpresa(rutEmpresa);
-                cliente.setTelefonoEmpresa(telefonoEmpresa);
-                cliente.setCorreoEmpresa(correoEmpresa);
-                cliente.setDireccionEmpresa(direccionEmpresa);
-                cliente.setComunaEmpresa(comunaEmpresa);
-                
-                // Asegurar que el idUsuario también se asigne al objeto profesional
-                cliente.setIdUsuario(usuario.getIdUsuario());
-            }
+				Cliente cliente = usuario.getCliente();
+				if (cliente == null) {
+					cliente = new Cliente();
+					usuario.setCliente(cliente); // Crear y asignar un nuevo objeto si no existe
+				}
+				cliente.setNombreEmpresa(nombreEmpresa);
+				cliente.setRutEmpresa(rutEmpresa);
+				cliente.setTelefonoEmpresa(telefonoEmpresa);
+				cliente.setCorreoEmpresa(correoEmpresa);
+				cliente.setDireccionEmpresa(direccionEmpresa);
+				cliente.setComunaEmpresa(comunaEmpresa);
+				cliente.setIdUsuario(usuario.getIdUsuario());
+			}
 
-            // Actualizar el usuario en la base de datos
-            interfaz.actualizarUsuario(usuario);
+			// Actualizar el usuario en la base de datos
+			interfaz.actualizarUsuario(usuario);
 
-            // Redirigir nuevamente a la lista de usuarios o a alguna página de confirmación
-            response.sendRedirect("ListarUsuarios");
+			// Redirigir a la lista de usuarios o a una página de confirmación
+			response.sendRedirect("ListarUsuarios");
 
-        } catch (SQLException e) {
-            e.printStackTrace();
-            throw new ServletException(e);
-        }
-    }
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new ServletException(e);
+		}
+	}
 }
-
-
