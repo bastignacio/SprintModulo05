@@ -62,6 +62,7 @@
 			</form>
 		</div>
 	</div>
+<!-- 	Verificación de éxito y error al rellenar el formulario -->
 	<br>
 	<%
 	if (request.getAttribute("error") != null) {

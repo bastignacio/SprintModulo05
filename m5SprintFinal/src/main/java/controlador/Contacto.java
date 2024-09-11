@@ -8,10 +8,30 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
+/**
+ * Servlet que maneja la lógica del formulario de contacto. Permite a los
+ * usuarios autenticados acceder a la página de contacto, y enviar un mensaje.
+ * Además, muestra por consola los datos del formulario.
+ * 
+ * @author Ariel Alfaro
+ * @author Bastian Muñoz
+ * @author Bastian Espinosa
+ * @author Joshua Montt
+ * @author Nicolas Gajardo
+ * @version 1.0
+ */
 @WebServlet("/Contacto")
 public class Contacto extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
+	/**
+	 * Método para imprimir los datos del formulario de contacto en la consola.
+	 * 
+	 * @param email   El correo electrónico ingresado por el usuario.
+	 * @param nombre  El nombre ingresado por el usuario.
+	 * @param asunto  El asunto del mensaje ingresado por el usuario.
+	 * @param mensaje El contenido del mensaje ingresado por el usuario.
+	 */
 	public void ImprimirContacto(String email, String nombre, String asunto, String mensaje) {
 		System.out.println("==== Datos del Formulario de Contacto ====");
 		System.out.println("Correo Electrónico: " + email);
@@ -21,6 +41,17 @@ public class Contacto extends HttpServlet {
 		System.out.println("=========================================");
 	}
 
+	/**
+	 * Maneja las solicitudes GET para la página de contacto. Verifica si el usuario
+	 * está autenticado antes de redirigirlo al formulario de contacto.
+	 * 
+	 * @param request  El objeto HttpServletRequest que contiene la solicitud del
+	 *                 cliente.
+	 * @param response El objeto HttpServletResponse que contiene la respuesta del
+	 *                 servlet.
+	 * @throws ServletException Si ocurre un error al procesar el servlet.
+	 * @throws IOException      Si ocurre un error de E/S.
+	 */
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -34,6 +65,18 @@ public class Contacto extends HttpServlet {
 		}
 	}
 
+	/**
+	 * Maneja las solicitudes POST desde el formulario de contacto. Recoge los datos
+	 * del formulario, los valida, los imprime en consola y redirige al usuario con
+	 * un mensaje de éxito o error.
+	 * 
+	 * @param request  El objeto HttpServletRequest que contiene la solicitud del
+	 *                 cliente.
+	 * @param response El objeto HttpServletResponse que contiene la respuesta del
+	 *                 servlet.
+	 * @throws ServletException Si ocurre un error al procesar el servlet.
+	 * @throws IOException      Si ocurre un error de E/S.
+	 */
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
