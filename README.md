@@ -2,19 +2,19 @@
 ## Sistema de Información para Empresa de Asesorías en Prevención de Riesgos
 # Integrantes:
 
-Ariel Alfaro
+Ariel Alfaro https://github.com/NeoAriel-code/SprintModulo5
 
 
-Bastian Muñoz
+Bastian Muñoz https://github.com/Bmunozdiaz/SprintFinalModulo5
 
 
-Bastian Espinosa
+Bastian Espinosa https://github.com/bastignacio/SprintModulo05
 
 
-Joshua Montt
+Joshua Montt https://github.com/JmonttV/sprint-modulo-5
 
 
-Nicolas Gajardo
+Nicolas Gajardo https://github.com/Meneazus/SprintFinal05
 
 
 ## Índice
